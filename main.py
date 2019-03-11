@@ -65,9 +65,13 @@ if __name__ == "__main__":
 
     random.seed(1)
 
-    layer1 = NeuronLayer(5, 64)
+    input_layer= 64
+    hidden_layer= 100
+    output_layer= 8
 
-    layer2 = NeuronLayer(5, 5)
+    layer1 = NeuronLayer(hidden_layer, input_layer)
+
+    layer2 = NeuronLayer(output_layer, hidden_layer)
 
     neural_network = NeuralNetwork(layer1, layer2)
 
@@ -82,28 +86,44 @@ if __name__ == "__main__":
     img1 = mpimg.imread("PixelBilder/Dreieck_rotiert.png")
     img2 = mpimg.imread("PixelBilder/Quadrat.png")
     img3 = mpimg.imread("PixelBilder/Strich_horizontal.png")
+
     img4 = mpimg.imread("PixelBilder/Strich_vertikal.png")
-    
+    img5 = mpimg.imread("PixelBilder/Strich_schräg_links.png")
+    img6 = mpimg.imread("PixelBilder/Strich_schräg_rechts.png")
+    img7 = mpimg.imread("PixelBilder/Kreis.png")
+
 
     gray0 = np.reshape(rgb2gray(img0), -1)
     gray1 = np.reshape(rgb2gray(img1), -1)
     gray2 = np.reshape(rgb2gray(img2), -1)
     gray3 = np.reshape(rgb2gray(img3), -1)
     gray4 = np.reshape(rgb2gray(img4), -1)
+    gray5 = np.reshape(rgb2gray(img5), -1)
+    gray6 = np.reshape(rgb2gray(img6), -1)
+    gray7 = np.reshape(rgb2gray(img7), -1)
 
     img1Rauschen= mpimg.imread("PixelBilder/Dreieck_rotiert_damaged.png")
     img2Rauschen= mpimg.imread("PixelBilder/Quadrat_damaged.png")
-    img3Rauschen= mpimg.imread("PixelBilder/Strich_schräg_rechts.png")
+   # img3Rauschen= mpimg.imread("PixelBilder/Strich_schräg_rechts.png")
 
     gray1Rauschen = np.reshape(rgb2gray(img1Rauschen), -1)
     gray2Rauschen = np.reshape(rgb2gray(img2Rauschen), -1)
-    gray3Rauschen = np.reshape(rgb2gray(img3Rauschen), -1)
-    #plt.imshow(gray1, cmap = plt.get_cmap('gray'))
-    #plt.show()
-    #print(gray1)
-    
-    training_set_inputs = array([gray0, gray1, gray2, gray3, gray4])
-    training_set_outputs = array([[1,0,0,0,0],[0,1,0,0,0],[0,0,1,0,0],[0,0,0,1,0],[0,0,0,0,1]]).T
+    #gray3Rauschen = np.reshape(rgb2gray(img3Rauschen), -1)
+    #newErrorPlot = []
+    # newErrorPlot = 0
+    # nrOfTrainingInputs = error.shape[0] # first dimension == nrOfTrainingInputs
+    # for pictureIx in range(nrOfTrainingInputs):
+    #     size = error[pictureIx].size
+    #     sum = 0
+    #     for ix in range(size):
+    #         sum += error[pictureIx][ix] ** 2
+    #     #newErrorPlot.append(sum)
+    #     newErrorPlot += sum
+    #
+    # errorsToPlot.append(newErrorPlot)
+    #
+    training_set_inputs = array([gray0, gray1, gray2, gray3, gray4, gray5, gray6, gray7])
+    training_set_outputs = array([[1,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0],[0,0,1,0,0,0,0,0],[0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0],[0,0,0,0,0,1,0,0],[0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,1]]).T
 
     # Train the neural network using the training set.
     # Do it 60,000 times and make small adjustments each time.
@@ -120,6 +140,4 @@ if __name__ == "__main__":
     hidden_state, output = neural_network.think(array(gray2Rauschen))
     print(output)
 
-    hidden_state, output = neural_network.think(array(gray3Rauschen))
-    print(output)
 
