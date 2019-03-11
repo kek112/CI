@@ -3,12 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
+test_img_1 = 0
+test_img_2 = 0
 
-#hidden layer
 class NeuronLayer():
     def __init__(self, number_of_neurons, number_of_inputs_per_neuron):
         self.synaptic_weights = 2 * random.random((number_of_inputs_per_neuron, number_of_neurons)) - 1
-
 
 class NeuralNetwork():
     def __init__(self, layer1, layer2):
@@ -22,6 +22,11 @@ class NeuralNetwork():
     def __sigmoid_derivative(self, x):
         return x * (1 - x)
 
+    def check_error(self, list):
+        for i in list:
+            if i < 0.9:
+                print (i)
+
     def train(self, training_set_inputs, training_set_outputs, number_of_training_iterations):
         for iteration in range(number_of_training_iterations):
             output_from_layer_1, output_from_layer_2 = self.think(training_set_inputs)
@@ -32,6 +37,8 @@ class NeuralNetwork():
 
             layer1_error = layer2_delta.dot(self.layer2.synaptic_weights.T)
             layer1_delta = layer1_error * self.__sigmoid_derivative(output_from_layer_1)
+
+            print("Detection Rate: ",self.test(test_img_1))
 
             layer1_adjustment = training_set_inputs.T.dot(layer1_delta)
             layer2_adjustment = output_from_layer_1.T.dot(layer2_delta)
@@ -61,12 +68,14 @@ class NeuralNetwork():
 #experimentieren mit anzahl neouronen und layer
 #coole diagramme ploten
 
+
+
 if __name__ == "__main__":
 
     random.seed(1)
 
     input_layer= 64
-    hidden_layer= 100
+    hidden_layer= 15
     output_layer= 8
 
     layer1 = NeuronLayer(hidden_layer, input_layer)
@@ -104,10 +113,11 @@ if __name__ == "__main__":
 
     img1Rauschen= mpimg.imread("PixelBilder/Dreieck_rotiert_damaged.png")
     img2Rauschen= mpimg.imread("PixelBilder/Quadrat_damaged.png")
-   # img3Rauschen= mpimg.imread("PixelBilder/Strich_schräg_rechts.png")
 
     gray1Rauschen = np.reshape(rgb2gray(img1Rauschen), -1)
     gray2Rauschen = np.reshape(rgb2gray(img2Rauschen), -1)
+    test_img_1 = gray1Rauschen
+    test_img_2 = gray2Rauschen
     #gray3Rauschen = np.reshape(rgb2gray(img3Rauschen), -1)
     #newErrorPlot = []
     # newErrorPlot = 0
