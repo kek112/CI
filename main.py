@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     random.seed(1)
 
-    layer1 = NeuronLayer(5, 20)
+    layer1 = NeuronLayer(5, 64)
 
     layer2 = NeuronLayer(5, 5)
 
@@ -78,13 +78,13 @@ if __name__ == "__main__":
     def rgb2gray(rgb):
         return np.dot(rgb[...,:3], [0.299, 0.587, 0.114])
 
-    img0 = mpimg.imread("../../Spielplatz/Bilder/one.png")
-    img1 = mpimg.imread("../../Spielplatz/Bilder/two.png")
-    img2 = mpimg.imread("../../Spielplatz/Bilder/three.png")
-    img3 = mpimg.imread("../../Spielplatz/Bilder/four.png")
-    img4 = mpimg.imread("../../Spielplatz/Bilder/five.png")
+    img0 = mpimg.imread("PixelBilder/Dreieck.png")
+    img1 = mpimg.imread("PixelBilder/Dreieck_rotiert.png")
+    img2 = mpimg.imread("PixelBilder/Quadrat.png")
+    img3 = mpimg.imread("PixelBilder/Strich_horizontal.png")
+    img4 = mpimg.imread("PixelBilder/Strich_vertikal.png")
     
-    img1Rauschen= mpimg.imread("../../Spielplatz/Bilder/oneRauschen.png")
+    img1Rauschen= mpimg.imread("PixelBilder/Dreieck_rotiert_damaged.png")
     gray0 = np.reshape(rgb2gray(img0), -1)
     gray1 = np.reshape(rgb2gray(img1), -1)
     gray2 = np.reshape(rgb2gray(img2), -1)
