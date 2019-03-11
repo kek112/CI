@@ -84,15 +84,20 @@ if __name__ == "__main__":
     img3 = mpimg.imread("PixelBilder/Strich_horizontal.png")
     img4 = mpimg.imread("PixelBilder/Strich_vertikal.png")
     
-    img1Rauschen= mpimg.imread("PixelBilder/Dreieck_rotiert_damaged.png")
+
     gray0 = np.reshape(rgb2gray(img0), -1)
     gray1 = np.reshape(rgb2gray(img1), -1)
     gray2 = np.reshape(rgb2gray(img2), -1)
     gray3 = np.reshape(rgb2gray(img3), -1)
     gray4 = np.reshape(rgb2gray(img4), -1)
 
-    gray1Rauschen = np.reshape(rgb2gray(img1Rauschen), -1)
+    img1Rauschen= mpimg.imread("PixelBilder/Dreieck_rotiert_damaged.png")
+    img2Rauschen= mpimg.imread("PixelBilder/Quadrat_damaged.png")
+    img3Rauschen= mpimg.imread("PixelBilder/Strich_schräg_rechts.png")
 
+    gray1Rauschen = np.reshape(rgb2gray(img1Rauschen), -1)
+    gray2Rauschen = np.reshape(rgb2gray(img2Rauschen), -1)
+    gray3Rauschen = np.reshape(rgb2gray(img3Rauschen), -1)
     #plt.imshow(gray1, cmap = plt.get_cmap('gray'))
     #plt.show()
     #print(gray1)
@@ -110,5 +115,11 @@ if __name__ == "__main__":
     # Test the neural network with a new situation.
     print("Stage 3) Considering a new situation [1, 1, 0] -> ?: ")
     hidden_state, output = neural_network.think(array(gray1Rauschen))
+    print(output)
+
+    hidden_state, output = neural_network.think(array(gray2Rauschen))
+    print(output)
+
+    hidden_state, output = neural_network.think(array(gray3Rauschen))
     print(output)
 
